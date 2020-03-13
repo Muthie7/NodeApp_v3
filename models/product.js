@@ -1,4 +1,5 @@
 const getDb = require('../util/database').getDb;
+const mongodb = require('mongodb');
 
 class Product {
   constructor(title, price, imageUrl, description) {
@@ -31,11 +32,27 @@ class Product {
         console.log(products);
         return products;
       })
-      .catch(err => { //Mpya hapa
+      .catch(err => {
         console.log(err)
       })
   }
 
+  static findById(prodId) {
+    const db = getDb();
+    return db
+      .collection('products')
+      .find({
+        _id: new mongodb.ObjectId(prodId) //find me all docs where the _id stored in the db is equal to the contructor
+      })                                   
+      .next()
+      .then(product => {
+        console.log(Product)
+        return product;
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 
 module.exports = Product;
