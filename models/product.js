@@ -31,7 +31,7 @@ class Product {
         console.log(products);
         return products;
       })
-      .catch(err => { //Mpya
+      .catch(err => { //Mpya hapa
         console.log(err)
       })
   }
