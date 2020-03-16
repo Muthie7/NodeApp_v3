@@ -13,7 +13,7 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const imageUrl = req.body.imageUrl;
   const description = req.body.description;
-  
+
   const product = new Product(title, price, imageUrl, description);
 
   product
@@ -80,15 +80,27 @@ exports.postEditProduct = (req, res, next) => {
 }
 
 exports.getProducts = (req, res, next) => {
-  req.user.getProducts() //gets ALL products for the user
+
+  Products.findAll()
     .then(products => {
-      res.render('admin/products', {
+     return res.render('admin/products', {
         prods: products,
         pageTitle: 'Admin Products',
         path: '/admin/products'
-      });
+      })
     })
-    .catch(err => { console.log(err) });
+    .catch( err =>{
+      console.log(err)
+    })
+  // req.user.getProducts() //gets ALL products for the user
+  //   .then(products => {
+  //     res.render('admin/products', {
+  //       prods: products,
+  //       pageTitle: 'Admin Products',
+  //       path: '/admin/products'
+  //     });
+  //   })
+  //   .catch(err => { console.log(err) });
 };
 
 exports.postDeleteProduct = (req, res, next) => {
